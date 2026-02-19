@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: Web-casio
+    name: casiotool
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt

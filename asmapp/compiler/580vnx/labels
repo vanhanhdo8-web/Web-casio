@@ -1,0 +1,57 @@
+0E5C8		strcpy
+203C2		smart_strcpy #2
+23DCC		smallprint
+08F7E		line_print #2
+23DC6		printline #2
+09470		render.e3d4 #2
+0947C		render.ddd4 #2
+09D34		memzero #2
+08C0C		fill_screen #2
+09F3A		delay #2
+23C4C		diagnostic_mode #2
+0AD92		diagnostic_wait_key #2
+23CB4		diagnostic #2
+23DD6		diag_scr_fill_ws #2
+23DDA       waitshift_striped
+23DDE		waitshift
+24010		hex_byte
+09938		hex_to_dec
+1F24C		getscancode #2
+2F5E8		getscancode_nodelay #2
+25C1A		getkeycode #2
+29892		cvt_keycode
+0A0E0		setsfr
+19808		byte_to_bcd
+19832		bcd_to_byte
+08E62		line_draw #2
+091FC		pixel_draw
+0904C		char_print_1byte #2
+09056 		char_print #2
+08C60		buffer_clear
+13B9A		load_table
+1652C		num_add #2
+16538		num_sub
+16544		num_mul
+16550		num_div
+1D24A		num_add_1 #2
+1D236		num_sub_1 #2
+1D272		num_mul_1 #2
+1D25E		num_div_1 #2
+20C46		num_output_print #2
+1D950		num_fromdigit
+1DC2E		num_frombyte #2
+1D898		num_invalid__ #2
+1DBE2		num_trunc__ #2
+1DAF0		num_mulxp__ #2
+1391A		num_random
+13A20		num_randint #2
+139D2		num_normalize
+1DC8A		num_to_byte #2
+279B6		num_to_str #2
+1DCE4		num_cpy
+1D902		num_cmp #2
+16844		num_sin #2
+1684E		num_cos #2
+168E4		num_tan
+2AD4C		display_menu #2
+093D2		draw_byte

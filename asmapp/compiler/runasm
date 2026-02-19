@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# --- Hệ thống màu V60 (Dual-Core Fusion) ---
+R='\033[38;5;196m' G='\033[38;5;82m' Y='\033[38;5;226m' 
+B='\033[38;5;33m'  P='\033[38;5;165m' C='\033[38;5;51m' 
+W='\033[38;5;255m' DG='\033[38;5;236m' NC='\033[0m' 
+
+while true; do
+    clear
+    TIME=$(date +"%H:%M:%S")
+    MEM=$(free -m | awk '/Mem:/ {print $3"/"$2"MB"}')
+    
+    # Header V60 - Dual System Interface
+    echo -e "${C} ╔$(printf '═%.0s' {1..58})╗${NC}"
+    echo -e " ${C} ║ ${W}DUAL-CORE V60.0 ${C}│ ${P}KASIO 2K9 ${C}│ ${G}RAM: $MEM ${C}│ ${Y}$TIME ${C}║${NC}"
+    echo -e " ${C} ╚$(printf '═%.0s' {1..58})╝${NC}"
+    
+    echo -e "  ${W}ACTIVE CORES:${NC} [${P}580VNX${NC}] & [${B}880BTG${NC}]"
+    echo ""
+
+    # Quét dữ liệu từ cả 2 thư mục
+    echo -e "  ${Y}📂 FUSED REPOSITORY:${NC}"
+    echo -e "  ${DG}┌──────┬──────────────────────────────────────────┬────────┐${NC}"
+    echo -e "  ${DG}│ ${W}ID   ${DG}│ ${W}SOURCE FILE NAME                         ${DG}│ ${W}TYPE   ${DG}│${NC}"
+    echo -e "  ${DG}├──────┼──────────────────────────────────────────┼────────┤${NC}"
+    
+    filenames=()
+    filepaths=()
+    filetypes=()
+    count=1
+
+    # Hàm quét thư mục
+    scan_dir() {
+        local dir=$1
+        local type=$2
+        local color=$3
+        if [ -d "$dir" ]; then
+            for file in "$dir"*; do
+                if [ -f "$file" ]; then
+                    local name=$(basename "$file")
+                    filenames[$count]="$name"
+                    filepaths[$count]="$file"
+                    filetypes[$count]="$type"
+                    printf "  ${DG}│${NC}  ${G}%02d  ${DG}│${NC}  ${W}%-40s ${DG}│ ${color}%-6s ${DG}│${NC}\n" "$count" "$name" "$type"
+                    ((count++))
+                fi
+            done
+        fi
+    }
+
+    # Thực hiện quét
+    scan_dir "./580vnx_ropchain/" "580VNX" "$P"
+    scan_dir "./880btg_ropchain/" "880BTG" "$B"
+
+    if [ $count -eq 1 ]; then
+        echo -e "  ${DG}│${NC}          ${R}✖ WARNING: NO SOURCE FILES DETECTED!           ${DG}│${NC}"
+    fi
+
+    echo -e "  ${DG}└──────┴──────────────────────────────────────────┴────────┘${NC}"
+    echo -e "  ${W}LỆNH:${NC} [${G}ID${NC}] Build  [${R}0${NC}] Exit  [${W}Enter${NC}] Refresh"
+    echo ""
+
+    # Prompt V60
+    echo -ne "  ${C}Kasio${W}@${C}DualCore${W}:${G}~/v60${W}$ ${NC}"
+    read input
+
+    if [[ "$input" == "0" ]]; then
+        echo -e "\n  ${R}🛑 Ngắt kết nối hệ thống...${NC}"
+        sleep 0.5; clear; exit 0
+    fi
+
+    if [[ -z "$input" ]]; then continue; fi
+
+    # Xử lý chọn file
+    if [[ "$input" =~ ^[0-9]+$ ]] && [ "$input" -ge 1 ] && [ "$input" -lt "$count" ]; then
+        selected_file="${filepaths[$input]}"
+        selected_name="${filenames[$input]}"
+        selected_type="${filetypes[$input]}"
+        
+        echo -e "\n  ${G}⚡ ĐANG BIÊN DỊCH:${NC} ${W}$selected_name${NC} [${Y}$selected_type${NC}]"
+        
+        # Hiệu ứng nạp core
+        echo -ne "  ${DG}Core Status: ["
+        for i in {1..20}; do echo -ne "${C}#"; sleep 0.01; done
+        echo -e "] ${G}READY${NC}"
+
+        echo -e "\n  ${C}╭$(printf '─%.0s' {1..52})╮${NC}"
+        
+        # LOGIC BIÊN DỊCH TỰ ĐỘNG THEO DÒNG MÁY
+        if [[ "$selected_type" == "580VNX" ]]; then
+            # Dùng compiler cho 580vnx
+            python3 ./580vnx/compiler_.py -f hex < "$selected_file"
+        else
+            # Dùng compiler cho 880btg (Giả sử file compiler nằm cùng cấu trúc)
+            # Bạn có thể đổi tên file python bên dưới nếu compiler 880 khác tên
+            python3 ./880btg/compiler_.py -f hex < "$selected_file"
+        fi
+        
+        echo -e "  ${C}╰$(printf '─%.0s' {1..52})╯${NC}"
+        echo -e "\n  ${G}✔ HOÀN TẤT!${NC} Nhấn Enter để tiếp tục..."
+        read -n 1
+    else
+        echo -e "\n  ${R}✖ Lỗi: ID [$input] không tồn tại!${NC}"
+        sleep 1
+    fi
+done

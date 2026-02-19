@@ -1,0 +1,50 @@
+24172		strcpy
+34AC2		memcpy
+39D64		memzero
+2A576		memset
+38F88		smart_strcpy
+3A2D4		strlen
+
+06DC0		delay
+
+39AC4		cvt_key
+47CA2		getkey
+
+46334		render
+0A470		render2
+
+# some print
+1FABC		print_line
+395A6		line_print
+3A1D6		draw
+45916		pixel_draw
+09CFC		line_draw
+
+0919E		ENTER
+091A6		LEAVE
+13B74		LEAVE1	
+13F6A		LEAVE2
+1977E		LEAVE3
+2194A		LEAVE4
+
+06F04		_start
+
+
+09D7E		diagnostic_wait_key
+395BC		diag_scr_fill_ws
+23136		diag_calc_checksum
+23126	 	store_reg_to_stack
+2B8DC		diag_waitkey__
+332B2		diag_contrast
+0A476		diagnostic
+2DDE4		mode_diagnostic
+18E88		fill_screen
+
+
+06E9E		zero_KO
+
+18F1A		buffer_clear.ca54
+18F36		buffer_clear.d654
+
+# ========= Data labels (also see the cheat table)
+d_05C9E		test_base_n_key

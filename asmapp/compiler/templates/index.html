@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SPEEDROP K9 - Web Compiler</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #1e1e2f;
+            color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: #2d2d44;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,255,255,0.2);
+            width: 100%;
+            max-width: 800px;
+        }
+        h1 {
+            color: #0ff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px cyan;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1e1e2f;
+            border: 1px solid #0ff;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+        select, button {
+            background: #0ff;
+            color: #1e1e2f;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        select {
+            background: #44f;
+            color: white;
+        }
+        button:hover {
+            background: #0aa;
+        }
+        pre {
+            background: #1e1e2f;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #0f0;
+            color: #0f0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-top: 20px;
+        }
+        .info {
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ SPEEDROP K9 – DUAL COMPILER</h1>
+        <form action="/process" method="post">
+            <textarea name="hex_input" rows="6" placeholder="Nhập chuỗi hex (ví dụ: A1 B2 C3 hoặc A1B2C3) ..." required></textarea>
+            <div>
+                <select name="machine">
+                    <option value="580vnx">580VNX</option>
+                    <option value="880btg">880BTG</option>
+                </select>
+                <button type="submit">Biên dịch</button>
+            </div>
+        </form>
+        <div class="info">Kết quả sẽ hiển thị bên dưới sau khi xử lý.</div>
+        <div id="result">
+            {% if result %}
+                <pre>{{ result | safe }}</pre>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
